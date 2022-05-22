@@ -1,44 +1,34 @@
 import pygame
 
+from game_object import Game_object
 
-class Sheep:
 
-    def __init__(self, g_s, screen):
-
-        self.g_settings = g_s
-
-        self.sheep_img = pygame.image.load('image/sheep_W.bmp')
-        self.rect = self.sheep_img.get_rect()
-        self.screen = screen
-        self.sc_rect = self.screen.get_rect()
-
-        self.rect.centerx = float(self.sc_rect.centerx)
-        self.rect.centery = float(self.sc_rect.centery)
-
-    def sheep_move(self):  # ========================================================================================
-
-        self.rect.centerx += self.g_settings.sheep_sp_x
-        self.rect.centery += self.g_settings.sheep_sp_y
+class Sheep(Game_object):
+    def __init__(self, g_s, screen, skin_name):
+        super().__init__(g_s, screen, skin_name)
 
     def sheep_blit(self):
-        self.screen.blit(self.sheep_img, self.rect)
+        self.screen.blit(self.object_img, self.rect)
+
+    def sheep_move(self):
+        if self.g_settings.left_flag:
+            self.rect.centerx -= self.g_settings.sheep_speed_left
+        if self.g_settings.right_flag:
+            self.rect.centerx += self.g_settings.sheep_speed_right
+        if self.g_settings.top_flag:
+            self.rect.centery -= self.g_settings.sheep_speed_top
+        if self.g_settings.bottom_flag:
+            self.rect.centery += self.g_settings.sheep_speed_bottom
 
     def check_wall(self):
-        if self.rect.right >= self.sc_rect.right:
+        if self.rect.right >= self.sc_rect.right-5:
             self.g_settings.right_flag = False
-        else:
-            self.g_settings.right_flag = True
-        if self.rect.left <= self.sc_rect.left:
+        if self.rect.left <= self.sc_rect.left+5:
             self.g_settings.left_flag = False
-        else:
-            self.g_settings.left_flag = True
 
-        if self.rect.top <= self.sc_rect.top:
+        if self.rect.top <= self.sc_rect.top+5:
             self.g_settings.top_flag = False
-        else:
-            self.g_settings.top_flag = True
 
-        if self.rect.bottom >= self.sc_rect.bottom:
+        if self.rect.bottom >= self.sc_rect.bottom-5:
             self.g_settings.bottom_flag = False
-        else:
-            self.g_settings.bottom_flag = True
+
