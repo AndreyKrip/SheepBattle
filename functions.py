@@ -1,8 +1,9 @@
 import pygame
 
 
-def screen_update(screen, rect, bk_pict, sheep):  # Функция отрисовки экрана
+def screen_update(screen, rect, bk_pict, sheep, apple):  # Функция отрисовки экрана
     screen.blit(bk_pict, rect)  # заливка фона экрана
+    apple.apple_blit()  # Отрисовка яблок
     sheep.sheep_blit()  # рисование овцы поверх экрана
     pygame.display.update()  # Перворачивание (обновление) всего экрана
 
