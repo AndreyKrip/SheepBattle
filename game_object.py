@@ -1,9 +1,10 @@
 import pygame
 
 
-class Game_object:
+class Game_object(pygame.sprite.Sprite):
 
     def __init__(self, g_s, screen, skin_name):
+        super().__init__()
         self.g_settings = g_s
         self.screen = screen
         self.object_img = pygame.image.load(f'image/{skin_name}.bmp')
